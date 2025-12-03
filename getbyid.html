@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get By ID</title>
+</head>
+<script>
+  const fetchdata = async function () {
+
+    let id = document.getElementById("dd").value;
+    let response = await fetch(`https://localhost:7076/api/Employee/${id}`);
+    if (response.ok) { 
+      let x = await response.json();
+      let fd = "";
+
+      for (let b in x) {
+        console.log(x[b])
+        fd += x[b] + "<br/>"
+      }
+      fd += "<hr/>";
+
+      document.getElementById('p').innerHTML = fd;
+
+    }
+
+
+    else {
+      alert("HTTP-Error:  " + response.status);
+
+    }
+  }
+</script>
+
+<body>
+    <h1>
+        Get By ID
+    </h1>
+   <label>Enter ID:<input type="text" id="dd" ></label>
+   <input type="button" onclick="fetchdata()" value="Click to get by Id">
+    <p id="p"></p>
+</body>
+</html>

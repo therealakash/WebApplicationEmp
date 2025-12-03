@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete_Employee</title>
+    
+<script>
+    fetchdata= async function(){
+        let id = document.getElementById("dd").value;
+    let  response  =  await  fetch(`https://localhost:7076/api/Employee/${id}`,
+        {  method:"delete"
+        }
+    );
+    if  (response.ok)  {  //  if  HTTP-status  is  200-299
+    let x  =  response;          
+    document.getElementById('p').innerHTML=x;
+        }         
+    else  {
+            alert("HTTP-Error:  "  +  response.status);            
+            }
+        }
+    fetchdata();
+    </script>
+</head>
+<body>
+    <h1>
+        Delete By ID
+    </h1>
+   <label>Enter ID:<input type="text" id="dd" ></label>
+   <input type="button" onclick="fetchdata()" value="Click to get by Id">
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add</title>
+</head>
+
+    <script>
+        fetchdata= async function(){
+                  var  form  =  document.querySelector('form');
+                  event.preventDefault();
+                  var object = {};
+                  form=new FormData(form);
+                  console.log(form)
+                form.forEach(function(value, key){
+                object[key] = value;//  name="vita", email="vita@gmail.com", dept="HR"
+                });
+var json = JSON.stringify(object); 
+ console.log(json);
+    let  response  =  await  fetch("https://localhost:7076/api/Employee",
+        {  method:"post",
+           headers:   {
+                  'Content-Type':   'application/json;charset=utf-8'
+            },
+        body:json
+        }
+    );
+    if  (response.ok)  {  //  if  HTTP-status  is  200-299
+    let x  = await  response.json();           
+    document.getElementById('p').innerHTML= JSON.stringify(x);
+        }       
+        
+        else  
+           alert("HTTP-Error:  "  +  response.status);
+                     
+            }
+    
+    </script>
+
+<body>
+   
+    <h1>Add_Data</h1>
+       <p id="demo"></p>
+      <form onsubmit="return fetchdata()">
+          <label>Name</label><input name="name" />
+          <label>email</label><input name="email" />          
+          <label>Department</label><input name="departmentId" />
+          <button>Send Form data </button>
+     </form>
+</body>
+</html>
