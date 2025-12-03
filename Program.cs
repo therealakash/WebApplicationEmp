@@ -21,7 +21,11 @@ namespace WebApplicationEmpProject
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<IServices, Servie>();
-
+            builder.Services.AddCors((p) => p.AddDefaultPolicy(
+    policy => policy.WithOrigins("*")
+            .AllowAnyHeader()
+        .AllowAnyMethod()
+     ));
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -32,7 +36,7 @@ namespace WebApplicationEmpProject
             }
 
             app.UseHttpsRedirection();
-
+             app.UseCors();
             app.UseAuthorization();
 
 
